@@ -1,2 +1,4 @@
 export const ADD_HOTSPOT = 'ADD_HOTSPOT';
 export const REMOVE_HOTSPOT = 'REMOVE_HOTSPOT';
+export const REMOVE_ALL = 'REMOVE_ALL';
+export const UPDATE_HOTSPOT = 'UPDATE_HOTSPOT';

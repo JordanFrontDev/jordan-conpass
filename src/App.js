@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import NavBar from './components/Navbar';
+import NavBar from './components/Navbar/Navbar';
 import Button from '@material-ui/core/Button';
-import HotspotList from './components/HotspotList';
-import HotspotForm from './components/HotspotForm';
+import HotspotList from './components/HotspotList/HotspotList';
+import HotspotForm from './components/HotspotForm/HotspotForm';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({
@@ -15,7 +15,6 @@ const useStyles = makeStyles({
     padding: '0 25rem'
   },
   root: {
-    height: '100%',
     position: 'absolutes'
   },
   button: {
@@ -70,7 +69,7 @@ const App = () => {
       element.style.backgroundColor = "rgba(255,0,0,0.2)";
       element.style.transitionDuration = "0.4s";
       element.onmouseout = () => {
-        element.removeAttribute("style");
+        element.removeAttribute('style');
       };
     }else {
       return null;

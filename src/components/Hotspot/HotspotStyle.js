@@ -1,29 +1,49 @@
-import React from 'react';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
-import { connect } from 'react-redux';
-import { removeHotspot } from '../actions/actions';
 import Tooltip from '@material-ui/core/Tooltip';
 
 
-const useStyles = makeStyles({
+export const useStyles = makeStyles({
     root: {
         display: 'flex',
         padding: '0 .5rem',
         textAlign: 'left'
     },
     title: {
-        color: '#adaba8',
+        color: '#999794',
         width: '100%',
         fontWeight: '500',
     },
-    button: {
-        backgroundColor: 'transparent',
+    Removebutton: {
+        backgroundColor: '#db2727',
+        borderRadius: '10px',
+        height: '3rem',
+        textTransform: 'uppercase',
+        margin: 'auto 0',
+        textAlign: 'center',
+        fontWeight: 'bold',
         border: 'none',
         cursor: 'pointer',
         outline: 'none',
+        color: '#fff',
         transition: 'all .2s',
         '&:hover': {
-            color: 'red',
+            transform: 'scale(1.2)'
+        }
+    },
+    UpdateButton: {
+        backgroundColor: '#27c6cf',
+        border: 'none',
+        borderRadius: '10px',
+        fontWeight: 'bold',
+        textTransform: 'uppercase',
+        height: '3rem',
+        margin: 'auto 0',
+        cursor: 'pointer',
+        outline: 'none',
+        marginRight: '1rem',
+        color: '#fff',
+        transition: 'all .2s',
+        '&:hover': {
             transform: 'scale(1.2)'
         }
     },
@@ -50,12 +70,12 @@ const useStyles = makeStyles({
         color: 'darkgray'
     },
     hotspotDescription: {
-    
+
     }
 
 })
 
-const LightTooltip = withStyles(theme => ({
+export const LightTooltip = withStyles(theme => ({
     tooltip: {
         backgroundColor: theme.palette.common.white,
         color: 'rgba(0, 0, 0, 0.87)',
@@ -64,25 +84,3 @@ const LightTooltip = withStyles(theme => ({
         padding: '2rem'
     },
 }))(Tooltip);
-
-const Hotspot = ({ title, count, id, description, onRemoveHotspot, posX, posY }) => {
-    const classes = useStyles();
-    return (
-        <div className={classes.root}>
-            <h2 className={classes.title}>{`${title} #${count}`}</h2>
-            <button className={classes.button} onClick={() => onRemoveHotspot(id)}>remove</button>
-            
-            <LightTooltip title={<div><h1 className={classes.title}>{title}</h1><h2>{description}</h2></div>}>
-                <div className={classes.pulseButton} style={{ position: 'absolute', top: `${posX}px`, left: `${posY}px` }}></div>
-            </LightTooltip>
-        </div>
-    );
-};
-
-const stateDispatchToProps = (dispatch) => {
-    return {
-        onRemoveHotspot: (id) => dispatch(removeHotspot(id))
-    }
-}
-
-export default connect(null, stateDispatchToProps)(Hotspot);

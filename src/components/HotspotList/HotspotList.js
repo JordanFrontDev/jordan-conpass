@@ -1,31 +1,21 @@
 import React from 'react';
-import Hotspot from './Hotspot';
-import { makeStyles } from '@material-ui/core/styles';
+import Hotspot from '../Hotspot/Hotspot';
 import Divider from '@material-ui/core/Divider';
 import uuid from 'uuid/v4';
+import { removeAll } from '../../actions/actions';
 import { connect } from "react-redux";
-
-const useStyles = makeStyles({
-    root: {
-        textAlign: 'left'
-    },
-    title: {
-        backgroundColor: '#e8e7e6',
-        color: '#adaba8',
-        fontWeight: '500',
-        padding: '0.5rem',
-    },
-    msg: {
-        color: '#adaba8'
-    }
-})
+import { useStyles } from './HotspotListStyles';
 
 
-const HotspotList = ({hotspots}) => {
+const HotspotList = ({ hotspots, onRemoveAll }) => {
     const classes = useStyles();
+    console.log(hotspots);
     return (
         <div className={classes.root}>
-            <h2 className={classes.title}>List of Hotspots</h2>
+        <div className={classes.title}>
+            <h2 >List of Hotspots</h2> 
+            <h2 onClick={onRemoveAll} className={classes.button}>Remove All</h2>
+            </div>
             {
                 hotspots.map((hotspot, i) => {
                     return <React.Fragment  key={uuid()}>
@@ -52,4 +42,10 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps)(HotspotList);
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onRemoveAll: () => dispatch(removeAll())
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(HotspotList);

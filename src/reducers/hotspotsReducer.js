@@ -1,8 +1,9 @@
 import {
     ADD_HOTSPOT,
-    REMOVE_HOTSPOT
+    REMOVE_HOTSPOT,
+    REMOVE_ALL,
+    UPDATE_HOTSPOT
 } from '../constants';
-
 
 
 export const hotspotsReducer = (state = [], action) => {
@@ -13,7 +14,13 @@ export const hotspotsReducer = (state = [], action) => {
                 action
             ]
         case REMOVE_HOTSPOT:
-           return state.filter(hotspot => hotspot.id !== action.id);
+            return state.filter(hotspot => hotspot.id !== action.id);
+        case UPDATE_HOTSPOT:
+            return state.map(hotspot => {
+                return hotspot.id === action.id ? { ...hotspot, title: action.title, description: action.description } : hotspot
+            })
+        case REMOVE_ALL:
+            return []
         default:
             return state;
 

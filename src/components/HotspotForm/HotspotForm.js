@@ -5,17 +5,11 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { connect } from 'react-redux';
-import { addHotspot } from '../actions/actions';
-import { makeStyles } from '@material-ui/core/styles';
-import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
+import TextField from '@material-ui/core/TextField';
+import { addHotspot } from '../../actions/actions';
+import { useStyles } from './HotspotFormStyles';
 import uuid from 'uuid/v4';
 
-const useStyles = makeStyles({
-    form: {
-        display: 'flex',
-        flexDirection: 'column'
-    }
-})
 
 const HotspotForm = ({ onAddHotspot, open, setOpen, posX, posY }) => {
     const classes = useStyles();
@@ -27,11 +21,11 @@ const HotspotForm = ({ onAddHotspot, open, setOpen, posX, posY }) => {
     }
 
     const onTitleChange = (e) => {
-        setTitleField(e.target.value);
+        setTitleField(e.target.value.trimLeft());
     }
 
     const onDescriptionChage = (e) => {
-        setDescriptionField(e.target.value);
+        setDescriptionField(e.target.value.trimLeft());
     }
 
     const onFormSubmit = (e) => {
@@ -52,40 +46,42 @@ const HotspotForm = ({ onAddHotspot, open, setOpen, posX, posY }) => {
                 aria-describedby="alert-dialog-description"
             >
                 <DialogTitle id="Add new hotspot">{"Please put the hotspot information"}</DialogTitle>
-                <ValidatorForm onSubmit={onFormSubmit} >
+                <form onSubmit={onFormSubmit} >
                     <DialogContent className={classes.form}>
+                        
+                        <TextField
+                        id="title"
+                        name='title'
+                        value={titleField}
+                        label="Title"
+                        onChange={onTitleChange}
+                        required
+                        margin="normal"
+                        variant="standard"
+                      />
 
-                        <TextValidator
-                            value={titleField}
-                            name='title'
-                            margin='normal'
-                            placeholder='Navbar'
-                            onChange={onTitleChange}
-                            validators={['required']}
-                            errorMessages={['You must provide a title']}
-                        />
-
-                        <TextValidator
-                            value={descriptionField}
-                            name='description'
-                            margin='normal'
-                            placeholder='For user navigation'
-                            onChange={onDescriptionChage}
-                            validators={['required']}
-                            errorMessages={['You must provide a description']}
-                        />
+                        <TextField
+                        id="outlined-textarea"
+                        value={descriptionField}
+                        label="Description"
+                        onChange={onDescriptionChage}
+                        multiline
+                        required
+                        margin="normal"
+                        variant="standard"
+                      />
 
                     </DialogContent>
                     <DialogActions>
 
                         <Button type='submit' color="primary" autoFocus variant='contained'>
-                            Agree
+                           Ok
                     </Button>
                         <Button onClick={handleClose} color="primary">
-                            Disagree
+                            Cancel
                     </Button>
                     </DialogActions>
-                </ValidatorForm>
+                </form>
             </Dialog>
         </div>
     );

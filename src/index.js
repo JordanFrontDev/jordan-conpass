@@ -7,23 +7,23 @@ import { hotspotsReducer } from "./reducers/hotspotsReducer";
 import { Provider } from "react-redux";
 import { createStore } from "redux";
 
-
 const persistedState = localStorage.getItem("reduxState")
   ? JSON.parse(localStorage.getItem("reduxState"))
   : [];
 
-  const store = createStore(hotspotsReducer, persistedState);
+const store = createStore(hotspotsReducer, persistedState);
+
 
 store.subscribe(() => {
-    localStorage.setItem("reduxState", JSON.stringify(store.getState()));
-  });
+  localStorage.setItem("reduxState", JSON.stringify(store.getState()));
+});
 
 ReactDOM.render(
-    <Provider store={store}>
-      <App />
-    </Provider>,
-    document.getElementById("root")
-  );
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById("root")
+);
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
